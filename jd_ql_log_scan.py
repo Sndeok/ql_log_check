@@ -9,7 +9,7 @@ from depend import Depend
 
 '''
 cron: 30 23 * * *
-new Env('青龙日志分析 && 自动补全依赖');
+new Env('青龙日志分析');
 ########环境变量设置#########
 
 ## (非必填) 脚本唯一性检测，请在此处填写你想运行的脚本的绝对路径，其他脚本检测到路径与此变量不符将会停止运行
@@ -37,23 +37,23 @@ export QL_LOG_NPM="npm"
 
 class QlLogScan(Depend):
     def __init__(self):
-        self.pyname = os.path.basename(__file__).replace(".py", "")
-        print(self.only_check(self.pyname, os.path.abspath(__file__),"QL_LOG_SCAN_SCRIPT_PATH"))
+        self.pyname = os.path。basename(__file__)。replace(".py"， "")
+        print(self.only_check(self.pyname, os.path。abspath(__file__)，"QL_LOG_SCAN_SCRIPT_PATH"))
         self.ql_log_path = self.get_env("QL_LOG_PATH", self.get_ql_path() + "log/")
-        self.filter_dir_list = self.not2append(["^\.tmp$", "^update$", self.pyname + "$"],
+        self.filter_dir_list = self.not2append(["^\.tmp$"， "^update$", self.pyname + "$"]，
                                                self.str2list(self.get_env("QL_LOG_BLACK_DIR")))
-        self.filter_log_list = self.not2append(['task_error\.log', 'start\.log'],
+        self.filter_log_list = self.not2append(['task_error\.log'， 'start\.log']，
                                                self.str2list(self.get_env("QL_LOG_BLACK_FILE")))
-        self.history_scan_deepin = self.get_env("QL_LOG_SCAN_DEEPIN", "0")
-        self.auto_install_depend = self.get_env("QL_LOG_AUTO_INSTALL_DEPEND", False)
-        self.npm = self.get_env("QL_LOG_NPM", "npm")
+        self.history_scan_deepin = self.get_env("QL_LOG_SCAN_DEEPIN"， "0")
+        self.auto_install_depend = self.get_env("QL_LOG_AUTO_INSTALL_DEPEND"， False)
+        self.npm = self.get_env("QL_LOG_NPM"， "npm")
         self.log_stat = {
-            "all": 0,
-            "nodejs_err": 0,
-            "python_err": 0,
-            "err_dict": {},
-            "nodejs_depend": [],
-            "python_depend": [],
+            "all": 0，
+            "nodejs_err": 0，
+            "python_err": 0，
+            "err_dict": {}，
+            "nodejs_depend": []，
+            "python_depend": []，
             "readlog_err" :[]
         }
         self.LogNameHeadList = self.generateLogNameHeadList()
